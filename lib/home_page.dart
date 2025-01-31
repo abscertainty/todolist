@@ -11,20 +11,104 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _editTaskController = TextEditingController();
+  final _addTaskController = TextEditingController();
 
   final List<Task> tasks = [
     Task(content: "Create a project"),
     Task(content: "Watch a tutorial"),
   ];
 
-  // todo
+  void addTask() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Enter new task",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          content: SizedBox(
+            height: 125,
+            child: Column(
+              children: [
+                TextField(
+                  controller: _addTaskController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _editTaskController.clear();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: Colors.indigo,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            tasks.add(
+                                Task(content: _addTaskController.text.trim()));
+                          });
+                          Navigator.pop(context);
+                          _editTaskController.clear();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          "Add",
+                          style: TextStyle(
+                            color: Colors.indigo,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        );
+      },
+    );
+  }
+
   void deleteTask(index) {
     setState(() {
       tasks.removeAt(index);
     });
   }
 
-  // todo
   void editTask(index) {
     showDialog(
       context: context,
@@ -82,7 +166,8 @@ class _HomePageState extends State<HomePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            tasks[index].content = _editTaskController.text;
+                            tasks[index].content =
+                                _editTaskController.text.trim();
                           });
                           Navigator.pop(context);
                           _editTaskController.clear();
@@ -125,6 +210,14 @@ class _HomePageState extends State<HomePage> {
               onDelete: () => deleteTask(index),
             );
           },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: addTask,
+        backgroundColor: Colors.indigo,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
     );
