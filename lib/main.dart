@@ -27,7 +27,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Task> tasks = [];
+  final List<Task> tasks = [
+    Task(content: "Create a project"),
+    Task(content: "Watch a tutorial"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +38,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.indigo,
       ),
-      backgroundColor: Colors.indigoAccent[100],
       body: Center(
         child: ListView.builder(
           itemCount: tasks.length,
           itemBuilder: (context, index) {
-            return TodoTile();
+            return TodoTile(
+              content: tasks[index].content,
+            );
           },
         ),
       ),
