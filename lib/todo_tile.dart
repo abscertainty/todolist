@@ -32,13 +32,37 @@ class _TodoTileState extends State<TodoTile> {
         color: Colors.indigo,
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Text(
-        _content ?? "Null",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 30,
-        ),
-        textAlign: TextAlign.start,
+      child: Row(
+        children: [
+          Text(
+            _content ?? "Null",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+            ),
+            textAlign: TextAlign.start,
+          ),
+          Spacer(),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.edit,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.cancel,
+              color: Colors.white,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              right: 7,
+            ),
+          )
+        ],
       ),
     );
   }
