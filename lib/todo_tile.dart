@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TodoTile extends StatelessWidget {
+class TodoTile extends StatefulWidget {
   final String content;
   const TodoTile({
     super.key,
     required this.content,
   });
 
+  @override
+  State<TodoTile> createState() => _TodoTileState();
+}
+
+class _TodoTileState extends State<TodoTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +26,7 @@ class TodoTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Text(
-        content,
+        widget.content,
         style: TextStyle(
           color: Colors.white,
           fontSize: 30,
