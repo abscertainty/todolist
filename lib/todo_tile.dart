@@ -12,6 +12,13 @@ class TodoTile extends StatefulWidget {
 }
 
 class _TodoTileState extends State<TodoTile> {
+  String? _content;
+  @override
+  void initState() {
+    super.initState();
+    _content = widget.content;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +33,7 @@ class _TodoTileState extends State<TodoTile> {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Text(
-        widget.content,
+        _content ?? "Null",
         style: TextStyle(
           color: Colors.white,
           fontSize: 30,
