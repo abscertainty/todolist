@@ -10,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _editTaskController = TextEditingController();
+
   final List<Task> tasks = [
     Task(content: "Create a project"),
     Task(content: "Watch a tutorial"),
@@ -23,7 +25,89 @@ class _HomePageState extends State<HomePage> {
   }
 
   // todo
-  void editTask(index, String newContent) {}
+  void editTask(index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Enter new content",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          content: SizedBox(
+            height: 125,
+            child: Column(
+              children: [
+                TextField(
+                  controller: _editTaskController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _editTaskController.clear();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: Colors.indigo,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            tasks[index].content = _editTaskController.text;
+                          });
+                          Navigator.pop(context);
+                          _editTaskController.clear();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          "Confirm",
+                          style: TextStyle(
+                            color: Colors.indigo,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +121,7 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (context, index) {
             return TodoTile(
               content: tasks[index].content,
-              onEdit: () => editTask(index, ""),
+              onEdit: () => editTask(index),
               onDelete: () => deleteTask(index),
             );
           },
