@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 class TodoTile extends StatefulWidget {
   final String content;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
   const TodoTile({
     super.key,
     required this.content,
+    required this.onEdit,
+    required this.onDelete,
   });
 
   @override
@@ -13,10 +18,14 @@ class TodoTile extends StatefulWidget {
 
 class _TodoTileState extends State<TodoTile> {
   String? _content;
+  VoidCallback? onEdit;
+  VoidCallback? onDelete;
   @override
   void initState() {
     super.initState();
     _content = widget.content;
+    onEdit = widget.onEdit;
+    onDelete = widget.onDelete;
   }
 
   @override
@@ -43,17 +52,19 @@ class _TodoTileState extends State<TodoTile> {
             textAlign: TextAlign.start,
           ),
           Spacer(),
+          //! Edit button
           IconButton(
-            onPressed: () {},
+            onPressed: onEdit,
             icon: Icon(
               Icons.edit,
               color: Colors.white,
             ),
           ),
+          //! Delete button
           IconButton(
-            onPressed: () {},
+            onPressed: onDelete,
             icon: Icon(
-              Icons.cancel,
+              Icons.delete,
               color: Colors.white,
             ),
           ),
