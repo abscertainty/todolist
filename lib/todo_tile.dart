@@ -20,6 +20,7 @@ class _TodoTileState extends State<TodoTile> {
   String? _content;
   VoidCallback? onEdit;
   VoidCallback? onDelete;
+  bool checkBoxValue = false;
   @override
   void initState() {
     super.initState();
@@ -43,11 +44,28 @@ class _TodoTileState extends State<TodoTile> {
       ),
       child: Row(
         children: [
+          Checkbox(
+            checkColor: Colors.indigo,
+            activeColor: Colors.white,
+            side: BorderSide(
+              color: Colors.white,
+            ),
+            value: checkBoxValue,
+            onChanged: (value) {
+              setState(() {
+                checkBoxValue = value ?? false;
+              });
+            },
+          ),
           Text(
             _content ?? "Null",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 30,
+              fontSize: 25,
+              decoration: checkBoxValue
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+              decorationColor: Colors.white,
             ),
             textAlign: TextAlign.start,
           ),
