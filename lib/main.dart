@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/task.dart';
+import 'package:todolist/todo_tile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +14,36 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<Task> tasks = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo,
+      ),
+      backgroundColor: Colors.indigoAccent[100],
+      body: Center(
+        child: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (context, index) {
+            return TodoTile();
+          },
+        ),
+      ),
     );
   }
 }
